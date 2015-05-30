@@ -24,11 +24,10 @@
 			<div class="menu-wrap">
 				<nav class="menu">
 					<div class="icon-list">
-						<a href="#"><i class="fa fa-fw fa-home fa-lg"></i><span>Home</span></a>
-						<a href="#"><i class="fa fa-fw fa-user fa-lg"></i><span>Following</span></a>
-						<a href="#"><i class="fa fa-fw fa-users fa-lg"></i><span>Followers</span></a>
-						<a href="#"><i class="fa fa-fw fa-cogs fa-lg"></i><span>Settings</span></a>
-
+						<a href="#"><i class="fa fa-fw fa-home fa-lg"></i><span>&nbsp; &nbsp; Home</span></a>
+						<a href="#"><i class="fa fa-fw fa-user fa-lg"></i><span>&nbsp; &nbsp; Following</span></a>
+						<a href="#"><i class="fa fa-fw fa-users fa-lg"></i><span>&nbsp; &nbsp; Followers</span></a>
+						<a href="#"><i class="fa fa-fw fa-cogs fa-lg"></i><span>&nbsp; &nbsp; Settings</span></a>
 					</div>
 				</nav>
 				<button class="close-button" id="close-button">Close Menu</button>
@@ -39,10 +38,9 @@
 					<header class="codrops-header">
 						<h1>Twittler<span>Twittle with friends</span></h1>
 					</header>
+          <div class="feed">
+          </div>
 				</div>
-				<div class="feed">
-			
-		  	</div>
 			</div><!-- /content-wrap -->
 		</div><!-- /container -->
 		<script>
@@ -50,14 +48,23 @@
         var $feed = ".feed";
 
         var index = streams.home.length - 1;
+        var i = 1;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
+          var $tweet = $('<div class="card'+i+' tweetcard"></div>');
+          i++;
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
           $tweet.appendTo($feed);
           index -= 1;
         }
 
+      });
+    </script>
+    <script>
+      $(document).ready(function() {
+        setTimeout(function() {
+          $('.feed').addClass('load');
+        }, 500);
       });
     </script>
 	  <script src="js/classie.js"></script>
