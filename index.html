@@ -47,22 +47,29 @@
 		<script>
       $(document).ready(function(){
         var $feed = ".feed";
+        var index = 0;
 
-        var index = streams.home.length - 1;
-        var i = 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div class="tweetcard"></div>');
-          i++;
-          var timeStamp = moment(tweet.created_at).format("MMM DD YYYY h:mm a");
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.append('<BR>' + String.fromCharCode(13));
-          $tweet.append(timeStamp);
-          $tweet.appendTo($feed);
-          index -= 1;
+        var showTweets = function() {
+          while(index <= (streams.home.length - 1)) {
+            var tweet = streams.home[index];
+            var $tweet = $('<div class="tweetcard"></div>');
+            var timeStamp = moment(tweet.created_at).format("MMM DD YYYY h:mm a");
+            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $tweet.append('<BR>' + String.fromCharCode(13));
+            $tweet.append(timeStamp);
+            $tweet.prependTo($feed);
+            index += 1;
+          }
+          setTimeout(showTweets, 300);
         }
 
+        showTweets();
+
       });
+
+      refetch = function() {
+        index = streams.home.length - 1;
+      }
     </script>
     <script>
       moment().format();
