@@ -15,6 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="css/menu_sideslide.css" />
 		<script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="js/moment.js"></script>
 		<!--[if IE]>
   		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -51,9 +52,12 @@
         var i = 1;
         while(index >= 0){
           var tweet = streams.home[index];
-          var $tweet = $('<div class="card'+i+' tweetcard"></div>');
+          var $tweet = $('<div class="tweetcard"></div>');
           i++;
+          var timeStamp = moment(tweet.created_at).format("MMM DD YYYY h:mm a");
           $tweet.text('@' + tweet.user + ': ' + tweet.message);
+          $tweet.append('<BR>' + String.fromCharCode(13));
+          $tweet.append(timeStamp);
           $tweet.appendTo($feed);
           index -= 1;
         }
@@ -61,11 +65,7 @@
       });
     </script>
     <script>
-      $(document).ready(function() {
-        setTimeout(function() {
-          $('.feed').addClass('load');
-        }, 500);
-      });
+      moment().format();
     </script>
 	  <script src="js/classie.js"></script>
 		<script src="js/main.js"></script>
