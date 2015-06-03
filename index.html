@@ -26,7 +26,7 @@
 			<div class="menu-wrap">
 				<nav class="menu">
 					<div class="icon-list">
-						<a href="#"><i class="fa fa-fw fa-home fa-lg"></i><span>&nbsp; &nbsp; Home</span></a>
+						<a id="home"><i class="fa fa-fw fa-home fa-lg"></i><span>&nbsp; &nbsp; Home</span></a>
 						<a href="#"><i class="fa fa-fw fa-user fa-lg"></i><span>&nbsp; &nbsp; Following</span></a>
 						<a href="#"><i class="fa fa-fw fa-users fa-lg"></i><span>&nbsp; &nbsp; Followers</span></a>
 						<a href="#"><i class="fa fa-fw fa-cogs fa-lg"></i><span>&nbsp; &nbsp; Settings</span></a>
@@ -46,32 +46,60 @@
 			</div><!-- /content-wrap -->
 		</div><!-- /container -->
 		<script>
-      $(document).ready(function(){
-        var $feed = ".feed";
-        var index = 0;
+      var index = 0;
+      var $feed = ".feed";
+      var view = 'home';
 
-        var showTweets = function() {
-          while(index <= (streams.home.length - 1)) {
-            var tweet = streams.home[index];
-            var $tweet = $('<div class="tweetcard"></div>');
-            var timeStamp = tweet.created_at;
-            timeStamp = moment(timeStamp).format();
-            $tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.append('<BR>' + String.fromCharCode(13));
-            $tweet.append('<span data-livestamp='+timeStamp+'></span>');
-            $tweet.prependTo($feed);
-            index += 1;
-          }
-          setTimeout(showTweets, 300);
+      var homeTweets = function() {
+        while(index <= streams.home.length - 1) {
+          var tweet = streams.home[index];
+          var $tweet = $('<div class="tweetcard"></div>');
+          timeStamp = moment(tweet.created_at).format();
+          $tweet.append('@' + '<a class="username" id="' + tweet.user + '">' + tweet.user + '</a>' + ': ' + tweet.message);
+          $tweet.append('<BR>');
+          $tweet.append('<span data-livestamp='+timeStamp+'></span>');
+          $tweet.prependTo($feed);
+          index += 1;
         }
+      }
 
-        showTweets();
+      var userTweets = function(user) {
+        var userArray = streams.users[arguments[0]];
+        while(index <= userArray.length - 1) {
+          var tweet = userArray[index];
+          var $tweet = $('<div class="tweetcard"></div>');
+          timeStamp = moment(tweet.created_at).format();
+          $tweet.append('@' + '<a class="username" id="' + tweet.user + '">' + tweet.user + '</a>' + ': ' + tweet.message);
+          $tweet.append('<BR>');
+          $tweet.append('<span data-livestamp='+timeStamp+'></span>');
+          $tweet.prependTo($feed);
+          index += 1;
+        }
+      };
+
+      $(document).ready(function(){
+
+      	$("#home").on('click', function() {
+	      	view = 'home';
+	        index = 0;
+	        clearInterval(beginUserFeed);
+	        jQuery('.feed').empty();
+	        var beginHomeFeed = setInterval(function() { homeTweets(); }, 300);
+	      });
+
+				$(document).on('click', '.username', function() {
+				  var id = $(this).attr('id');
+				  view = id;
+				  index = 0;
+				  clearInterval(beginHomeFeed);
+				  jQuery('.feed').empty();
+				  var beginUserFeed = setInterval(function() { userTweets(view); }, 300);
+				});
 
       });
 
-      refetch = function() {
-        index = streams.home.length - 1;
-      }
+      var beginHomeFeed = setInterval(function() { homeTweets(); }, 300);
+    	var beginUserFeed = setInterval(function() {}, 300);
     </script>
     <script>
       moment().format();
