@@ -77,29 +77,25 @@
         }
       };
 
-      $(document).ready(function(){
-
-      	$("#home").on('click', function() {
-	      	view = 'home';
-	        index = 0;
-	        clearInterval(beginUserFeed);
-	        jQuery('.feed').empty();
-	        var beginHomeFeed = setInterval(function() { homeTweets(); }, 300);
-	      });
-
-				$(document).on('click', '.username', function() {
-				  var id = $(this).attr('id');
-				  view = id;
-				  index = 0;
-				  clearInterval(beginHomeFeed);
-				  jQuery('.feed').empty();
-				  var beginUserFeed = setInterval(function() { userTweets(view); }, 300);
-				});
-
+    	$("#home").on('click', function() {
+      	view = 'home';
+        index = 0;
+        clearInterval(beginUserFeed);
+        jQuery('.feed').empty();
+        beginHomeFeed = window.setInterval(function() { homeTweets(); }, 300);
       });
 
-      var beginHomeFeed = setInterval(function() { homeTweets(); }, 300);
-    	var beginUserFeed = setInterval(function() {}, 300);
+			$(document).on('click', '.username', function() {
+			  var id = $(this).attr('id');
+			  view = id;
+			  index = 0;
+			  clearInterval(beginHomeFeed);
+			  jQuery('.feed').empty();
+			  beginUserFeed = window.setInterval(function() { userTweets(view); }, 300);
+			});
+
+      var beginHomeFeed = window.setInterval(function() { homeTweets(); }, 300);
+    	var beginUserFeed = window.setInterval(function() {}, 300);
     </script>
     <script>
       moment().format();
