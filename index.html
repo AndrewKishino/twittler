@@ -53,9 +53,9 @@
       var homeTweets = function() {
         while(index <= streams.home.length - 1) {
           var tweet = streams.home[index];
-          var $tweet = $('<div class="tweetcard"></div>');
+          var $tweet = $('<div class="tweetcard popout"></div>');
           timeStamp = moment(tweet.created_at).format();
-          $tweet.append('@' + '<a class="username" id="' + tweet.user + '">' + tweet.user + '</a>' + ': ' + tweet.message);
+          $tweet.append('<a class="username" id="' + tweet.user + '">' + '@' + tweet.user + '</a>' + ': ' + tweet.message);
           $tweet.append('<BR>');
           $tweet.append('<span data-livestamp='+timeStamp+'></span>');
           $tweet.prependTo($feed);
@@ -67,9 +67,9 @@
         var userArray = streams.users[arguments[0]];
         while(index <= userArray.length - 1) {
           var tweet = userArray[index];
-          var $tweet = $('<div class="tweetcard"></div>');
+          var $tweet = $('<div class="tweetcard popout"></div>');
           timeStamp = moment(tweet.created_at).format();
-          $tweet.append('@' + '<a class="username" id="' + tweet.user + '">' + tweet.user + '</a>' + ': ' + tweet.message);
+          $tweet.append('<a class="username" id="' + tweet.user + '">' + '@' + tweet.user + '</a>' + ': ' + tweet.message);
           $tweet.append('<BR>');
           $tweet.append('<span data-livestamp='+timeStamp+'></span>');
           $tweet.prependTo($feed);
@@ -95,12 +95,11 @@
 			});
 
       var beginHomeFeed = window.setInterval(function() { homeTweets(); }, 300);
-    	var beginUserFeed = window.setInterval(function() {}, 300);
     </script>
     <script>
       moment().format();
     </script>
+    <script src="js/main.js"></script>
 	  <script src="js/classie.js"></script>
-		<script src="js/main.js"></script>
 	</body>
 </html>

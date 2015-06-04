@@ -8,7 +8,7 @@ body,
 }
 
 .container {
-	background: #373a47;
+	background: #a6a6a6;
 }
 
 .menu-wrap a {
@@ -27,7 +27,7 @@ body,
 
 .content {
 	position: relative;
-	background: #b4bad2;
+	background: #a6a6a6;
 	/*height: 100%*/
 }
 
@@ -50,7 +50,7 @@ body,
 }
 
 .feed {
-	background: #b4bad2;
+	background: #a6a6a6;
 }
 
 /* Menu Button */
@@ -180,6 +180,7 @@ body,
 	width: 65%;
 	height: 100%;
 	text-align: center;
+	color: #000000;
 }
 
 .tweetcard {
@@ -189,7 +190,7 @@ body,
 	transition: transform 0.8s;
 	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-	background: #7A3EFA;
+	background: #BBBBBB;
   border-radius: 3px;
   margin-top: 10px;
   padding: 10px 5px 10px 5px;
@@ -229,4 +230,19 @@ body,
 	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
+}
+
+.popout {
+  animation: popout .3s ease;
+  -webkit-animation: popout .3s ease;
+}
+
+@keyframes popout {
+  from{transform:scale(0)}
+  to{transform:scale(1)}
+}
+
+@-webkit-keyframes popout {
+  from{-webkit-transform:scale(0)}
+  to{-webkit-transform:scale(1)}
 }
